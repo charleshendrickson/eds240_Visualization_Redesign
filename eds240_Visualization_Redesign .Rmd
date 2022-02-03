@@ -1,0 +1,91 @@
+---
+title: "Visualization_Redesign"
+author: "Charles Hendrickson"
+date: "2/2/2022"
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# load packages
+library(ggplot2)
+library(lubridate)
+```
+
+```{r}
+# load data 
+sea_ice_data <- read.csv("data/sea_ice.csv")
+
+# Create dataframe
+sea_ice_data <- data.frame(sea_ice_data)
+
+# Format date column
+sea_ice_data$Date <- mdy(sea_ice_data$Date)
+```
+
+```{r}
+# Visualize sea ice data 
+
+ggplot(data = sea_ice_data, aes(x = Date, y = Vol)) +
+  geom_area(fill="lightblue", color="black") +
+  geom_smooth() +
+  labs(title = "PIOMAS Arctic Sea Ice Volume Anomaly (1979-2021)",
+       x = "Date",
+       y = "Sea Ice Volume (km^3)") +
+  theme_classic()
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

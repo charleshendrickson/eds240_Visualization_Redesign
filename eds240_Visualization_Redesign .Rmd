@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # load packages
 library(ggplot2)
 library(lubridate)
+library(tidyverse)
 ```
 
 ```{r}
@@ -29,15 +30,23 @@ sea_ice_data$Date <- mdy(sea_ice_data$Date)
 ```
 
 ```{r}
-# Visualize sea ice data 
+# Calculate the yearly average sea ice volume 
+yearly_avg <- sea_ice_data %>%
+  mutate(vol_avg = mean(Vol)) %>% 
+  summarize(vol_avg)
 
+```
+
+```{r}
+# Visualize sea ice data 
 ggplot(data = sea_ice_data, aes(x = Date, y = Vol)) +
   geom_area(fill="lightblue", color="black") +
-  geom_smooth() +
-  labs(title = "PIOMAS Arctic Sea Ice Volume Anomaly (1979-2021)",
+  geom_smooth(aes(colour="Trend Line")) +
+  labs(title = "Arctic Sea Ice Volume (1979-2021)",
        x = "Date",
-       y = "Sea Ice Volume (km^3)") +
-  theme_classic()
+       y = "Sea Ice Volume (10^3 km^3)") +
+  theme_classic() +
+  scale_colour_manual(name="Legend", values=("blue"))
 
 ```
 
